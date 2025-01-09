@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import axios from 'axios'
+import router from './router/router.js'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+const app = createApp(App)
 
-createApp(App).use(axios).mount('#app')
+app.use(router)
+app.mount('#app')
