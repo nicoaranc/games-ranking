@@ -1,21 +1,32 @@
 <template>
-    <div>
-        <div class="columns is-multiline">
-            <div class="column is-9">
-                <figure class="image mb-6">
-                    <img v-bind:src="game.get_image">
-                </figure>
-
-                <h1 class="title">{{ game.name }}</h1>
-
-                <p>{{ game.description }}</p>
-
+    <div class="columns">
+        <div class="column">
+            <h1 class="title">{{ game.name }}</h1>
+            <div class="columns">
+                <div class="column is-4 ">
+                    <figure class="image mb-6">
+                        <img v-bind:src="game.get_image">
+                        <br>
+                        <p class="has-text-centered"><strong>MyScore: </strong>{{ game.score }}/100</p>
+                        <p class="has-text-centered"><strong>Platform: </strong>{{ game.platform }}</p>
+                    </figure>
+                </div>
+                <div class="column">
+                    <p class="has-text-centered">Descripción</p>
+                    <br>
+                    <p class="has-text-centered">{{ game.description }}</p>
+                </div>
             </div>
 
-            <div class="column is-3">
-                <p><strong>MyScore: </strong>{{ game.score }}</p>
-            </div>
-
+        </div>
+        <div class="column">
+            <iframe width="560" 
+            height="315" 
+            v-bind:src="game.video" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
     </div>
 </template>
