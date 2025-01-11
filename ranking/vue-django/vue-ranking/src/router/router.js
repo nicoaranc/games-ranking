@@ -1,6 +1,7 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue'; // Asegúrate de que la ruta sea correcta
+import Game from '../views/Game.vue';
 
 const routes = [
   {
@@ -8,6 +9,11 @@ const routes = [
     name: 'Home',
     component: Home, // Muestra Home.vue cuando se navegue a "/"
   },
+  {
+    path: '/:platform_slug/:game_slug/',
+    name: 'Game',
+    component: Game,
+  }
 ];
 
 const router = createRouter({

@@ -6,7 +6,7 @@ from django.core.files import File
 # Create your models here.
 class Platform(models.Model):
     name = models.CharField(max_length=4, verbose_name='Nombre', primary_key=True)
-    slug = models.SlugField
+    slug = models.SlugField(blank=True)
 
     class Meta:
         verbose_name = 'Plataforma'
@@ -24,11 +24,12 @@ class Game(models.Model):
     # id = models.IntegerField(verbose_name='Id', primary_key=True)
     name = models.CharField(max_length=255, verbose_name='Nombre')
     platform = models.ForeignKey(Platform, related_name='games', on_delete=models.CASCADE, verbose_name='Plataforma')
+    slug = models.SlugField(blank=True)
     score = models.IntegerField(verbose_name='Puntaje')
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
-    description = models.TextField(verbose_name='Descripción', null=True)
-    video = models.TextField(verbose_name='Video', null=True)
+    description = models.TextField(verbose_name='Descripción', null=True, blank=True)
+    video = models.TextField(verbose_name='Video', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Juego'

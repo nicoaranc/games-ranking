@@ -18,6 +18,8 @@
                 <h3 class="is-size-4">{{ game.name }}</h3>
                 <h4 class="is-size-6">{{ game.platform }}</h4>
                 <p class="is-size-6 has-text-grey">{{ game.score }}/100</p>
+
+                <router-link v-bind:to="game.get_absolute_url" class="button is-dark mt-4"> Ver juego </router-link>
             </div>
 
         </div>
