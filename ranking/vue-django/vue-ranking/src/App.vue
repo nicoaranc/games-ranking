@@ -3,6 +3,9 @@
     <nav class="navbar is-dark">
       <div class="navbar-brand">
         <router-link to="/" class="navbar-item"><strong>Games ranking</strong></router-link>
+        <router-link to="/" class="navbar-item"><strong>Ingresar Juego</strong></router-link>
+        <router-link to="/" class="navbar-item"><strong>Buscar Plataforma</strong></router-link>
+        <router-link to="/" class="navbar-item"><strong>Buscar Juego</strong></router-link>
         <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
