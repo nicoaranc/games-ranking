@@ -11,13 +11,14 @@
 
         <div class="column is-3" v-for="game in bestGames" v-bind:key="game.id">
             <div class="box">
+                <figure class="image mb-4">
+                    <img :src="game.get_thumbnail">
+                </figure>
+
                 <h3 class="is-size-4">{{ game.name }}</h3>
+                <h4 class="is-size-6">{{ game.platform }}</h4>
                 <p class="is-size-6 has-text-grey">{{ game.score }}/100</p>
             </div>
-
-            <figure class="image mb-4">
-                <img :src="game.get_thumbnail">
-            </figure>
 
         </div>
 
