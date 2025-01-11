@@ -27,6 +27,8 @@ class Game(models.Model):
     score = models.IntegerField(verbose_name='Puntaje')
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
+    description = models.TextField(verbose_name='Descripción', null=True)
+    video = models.TextField(verbose_name='Video', null=True)
 
     class Meta:
         verbose_name = 'Juego'
