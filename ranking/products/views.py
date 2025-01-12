@@ -27,9 +27,11 @@ class GameDetail(APIView):
         serializer = GameSerializer(game)
         return Response(serializer.data)
 
-class PlatformList(generics.ListCreateAPIView):
-    queryset = Platform.objects.all()
-    serializer_class = PlatformSerializer
+class PlatformList(APIView):
+    def get(self, request, format=None):
+        platforms = Platform.objects.all()
+        serializer = PlatformSerializer(platforms, many=True)
+        return Response(serializer.data)
 
 class PlatformDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Platform.objects.all()

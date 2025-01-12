@@ -1,0 +1,53 @@
+<template>
+    <div class="home">
+        <h1 class="title has-text-centered"> Plataformas </h1>
+    </div>
+    <br>
+    <div class="columns is-multiline">
+        <div class="column is-3" v-for="platform in platforms" v-bind:key="platform.name">
+            <div class="box">
+                <h3 class="is-size-4">{{ platform.name_desc }}</h3>
+            </div>
+        </div>
+    </div>
+    <br>
+    <h1 class="title has-text-centered">Mejores Juegos</h1>
+    <br>
+    <div class="box" v-if="bestGames.length === 0">
+        <p class="has-text-centered ">Seleccione una plataforma</p>
+    </div>
+    <div class="columns is-multiline box" v-else>
+        <p>Hola</p>
+    </div>
+
+</template>
+
+<script>
+import axios from 'axios'
+    export default {
+        name:'Platforms-page',
+        data() {
+            return {
+                platforms: [],
+                bestGames: []
+            }
+        },
+        components: {
+        },
+        mounted() {
+            this.getPlatforms()
+        },
+        methods: {
+            getPlatforms() {
+                axios
+                    .get('http://127.0.0.1:8000/api/platforms')
+                    .then(response => {
+                        this.platforms = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            }
+        }
+    }
+</script>

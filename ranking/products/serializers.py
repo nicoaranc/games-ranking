@@ -19,7 +19,7 @@ class PlatformSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Platform
-        fields = ('name')
+        fields = ('name', 'slug', 'name_desc')
 
 class ImageSerializer(serializers.ModelSerializer):
 

@@ -7,6 +7,8 @@ from django.core.files import File
 class Platform(models.Model):
     name = models.CharField(max_length=4, verbose_name='Nombre', primary_key=True)
     slug = models.SlugField(blank=True)
+    name_desc = models.CharField(max_length=255, verbose_name='Nombre descriptivo', blank=True)
+
 
     class Meta:
         verbose_name = 'Plataforma'
