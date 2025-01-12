@@ -16,10 +16,14 @@ class GameSerializer(serializers.ModelSerializer):
                   'video')
 
 class PlatformSerializer(serializers.ModelSerializer):
+    games = GameSerializer(many=True)
 
     class Meta:
         model = Platform
-        fields = ('name', 'slug', 'name_desc')
+        fields = ('name', 
+                  'slug', 
+                  'name_desc', 
+                  'games')
 
 class ImageSerializer(serializers.ModelSerializer):
 

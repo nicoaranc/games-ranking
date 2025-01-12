@@ -5,7 +5,7 @@
     <br>
     <div class="columns is-multiline">
         <div class="column is-3" v-for="platform in platforms" v-bind:key="platform.name">
-            <div class="box">
+            <div v-on:click="getBestGames(platform.slug)" class="box">
                 <h3 class="is-size-4">{{ platform.name_desc }}</h3>
             </div>
         </div>
@@ -17,7 +17,20 @@
         <p class="has-text-centered ">Seleccione una plataforma</p>
     </div>
     <div class="columns is-multiline box" v-else>
-        <p>Hola</p>
+        <div class="column is-3" v-for="game in bestGames" v-bind:key="game.id">
+            <div class="box">
+                <figure class="image mb-4">
+                    <img :src="game.get_thumbnail">
+                </figure>
+
+                <h3 class="is-size-4">{{ game.name }}</h3>
+                <h4 class="is-size-6">{{ game.platform }}</h4>
+                <p class="is-size-6 has-text-grey">{{ game.score }}/100</p>
+
+                <router-link v-bind:to="game.get_absolute_url" class="button is-dark mt-4"> Ver juego </router-link>
+            </div>
+
+        </div>
     </div>
 
 </template>
@@ -43,6 +56,18 @@ import axios from 'axios'
                     .get('http://127.0.0.1:8000/api/platforms')
                     .then(response => {
                         this.platforms = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            },
+            getBestGames(platform) {
+                axios
+                    .get(`http://127.0.0.1:8000/api/games/${platform}`)
+                    .then(response => {
+                        console.log(response.data)
+                        this.bestGames = response.data.games;
+                        console.log(this.bestGames)
                     })
                     .catch(error => {
                         console.log(error)

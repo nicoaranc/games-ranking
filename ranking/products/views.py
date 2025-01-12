@@ -33,9 +33,17 @@ class PlatformList(APIView):
         serializer = PlatformSerializer(platforms, many=True)
         return Response(serializer.data)
 
-class PlatformDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Platform.objects.all()
-    serializer_class = PlatformSerializer
+class PlatformDetail(APIView):
+    def get_object(self, platform_slug):
+        try:
+            return Platform.objects.get(slug=platform_slug)
+        except Game.DoesNotExist:
+            raise Http404
+        
+    def get(self, request, platform_slug, format=None):
+        platform = self.get_object(platform_slug)
+        serializer = PlatformSerializer(platform)
+        return Response(serializer.data)
 
 class ImageList(generics.ListCreateAPIView):
     queryset = Image.objects.all()
