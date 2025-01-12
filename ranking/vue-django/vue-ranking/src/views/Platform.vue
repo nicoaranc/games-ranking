@@ -27,7 +27,7 @@
                 <h4 class="is-size-6 has-text-centered">{{ game.platform }}</h4>
                 <p class="is-size-6 has-text-grey has-text-centered">{{ game.score }}/100</p>
 
-                <router-link v-bind:to="game.get_absolute_url" class="button is-dark mt-4 has-text-centered"> Ver juego </router-link>
+                <router-link v-bind:to="game.get_absolute_url" class="button is-dark mt-4"> Ver juego </router-link>
             </div>
 
         </div>
