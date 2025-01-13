@@ -88,7 +88,7 @@ export default {
             }
         },
         submitGame() {
-                const slug = this.game.name.toLowerCase().replace(/ /g, '-');
+                const slug = this.game.name.toLowerCase().replace(/ /g, '-').replace(/:/g, '').replace(/'/g, '');
                 const formData = new FormData();
                 formData.append('name', this.game.name);
                 formData.append('platform', this.game.platform);
