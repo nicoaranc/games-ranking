@@ -13,7 +13,9 @@ class GameSerializer(serializers.ModelSerializer):
                   'get_image', 
                   'get_thumbnail', 
                   'description', 
-                  'video')
+                  'video',
+                  'slug',
+                  'image')
 
 class PlatformSerializer(serializers.ModelSerializer):
     games = GameSerializer(many=True)

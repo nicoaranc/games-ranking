@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue'; // Asegúrate de que la ruta sea correcta
 import Game from '../views/Game.vue';
 import Platforms from '../views/Platform.vue'
+import RegisterGame from '../views/Register.vue'
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/platforms',
     name: 'Platforms',
     component: Platforms
+  },
+  {
+    path: '/register-game',
+    name: 'RegisterGame',
+    component: RegisterGame
   }
 ];
 

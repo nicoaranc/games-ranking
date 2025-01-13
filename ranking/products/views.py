@@ -1,11 +1,11 @@
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import Game, Platform, Image
 from .serializers import GameSerializer, PlatformSerializer, ImageSerializer
 
-from django.http import Http404
+from django.http import Http404, QueryDict
 
 # Create your views here.
 
@@ -14,6 +14,19 @@ class GameList(APIView):
         games = Game.objects.all()
         serializer = GameSerializer(games, many=True)
         return Response(serializer.data)
+    
+    def post(self, request, *args, **kwargs):
+        
+        print(request.data)
+
+        serializer = GameSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response({'mensaje': 'Solicitud POST recibida'}, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class GameDetail(APIView):
     def get_object(self, platform_slug, game_slug):
