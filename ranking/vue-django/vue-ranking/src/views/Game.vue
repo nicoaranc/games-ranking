@@ -14,7 +14,11 @@
                 <div class="column">
                     <p class="has-text-centered">Descripción</p>
                     <br>
-                    <p class="has-text-centered">{{ game.description }}</p>
+                    <p class="has-text-centered">
+
+                            {{ game.description }}
+
+                    </p>
                 </div>
             </div>
 
