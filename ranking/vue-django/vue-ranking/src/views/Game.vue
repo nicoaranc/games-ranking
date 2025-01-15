@@ -23,7 +23,8 @@
             </div>
 
         </div>
-        <div class="column">
+        <div class="column has-text-centered">
+            <h1 class="title">Video/Trailer</h1>
             <iframe width="560" 
             height="315" 
             v-bind:src="game.video" 
