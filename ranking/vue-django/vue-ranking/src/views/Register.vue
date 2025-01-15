@@ -3,34 +3,54 @@
         <h1 class="title has-text-centered">Registrar Juego</h1>
     </div>
     <br>
-    <div class="box has-text-centered">
+    <div class="box my-custom-box m-auto">
         <form @submit.prevent = "submitGame">
-            <p>Nombre: <input v-model="game.name" placeholder="Nombre" required/></p>
-            <p>Plataforma: 
-                <select v-model="game.platform">
-                    <option disabled value="">Elegir Plataforma</option>
-                    <option v-for="platform in platforms" :key="platform.name" :value="platform.name">
-                        {{ platform.name_desc }}
-                    </option>
-                </select>
-            </p>
-            <p>MyScore: 
-                <input type="number" 
-                        v-model.number="game.score" 
-                        :min="0"
-                        :max="100"
-                        required/> /100
-            </p>
-            <p>Descripción: <textarea v-model="game.description"></textarea></p>
-            <p>Link Video (YouTube Embed): <input v-model="game.video" required/></p>
-            <p>Image:
-                <input
-                    type="file"
-                    accept="image/*"
-                    @change="handleImageUpload"
-                    required />
-            </p>
-            <button class="button is-primary" type="submit">Guardar</button>  
+            <div class="field">
+                <label class="label">Nombre: </label>
+                <div class="control">
+                    <input class="input" v-model="game.name" placeholder="Nombre" required/>
+                </div>
+                <br>
+                <label class="label">Plataforma: </label>
+                <div class="control">
+                    <select class="input" v-model="game.platform">
+                        <option disabled value="">Elegir Plataforma</option>
+                        <option v-for="platform in platforms" :key="platform.name" :value="platform.name">
+                            {{ platform.name_desc }}
+                        </option>
+                    </select>
+                </div>
+                <br>
+                <label class="label">MyScore:</label>
+                <div class="control">
+                    <input type="number" 
+                            v-model.number="game.score" 
+                            :min="0"
+                            :max="100"
+                            required/> /100
+                </div>
+                <br>
+                <label class="label">Descripción:</label>
+                <div class="control">
+                    <textarea class="input" v-model="game.description"></textarea>
+                </div>
+                <br>
+                <label class="label">Link Video (YouTube Embed):</label>
+                <div class="control">
+                    <input class="input" v-model="game.video" required/>
+                </div>
+                <br>
+                <label class="label"> Image: </label>
+                <div class="control">
+                    <input class="input"
+                        type="file"
+                        accept="image/*"
+                        @change="handleImageUpload"
+                        required />
+                </div>
+            </div>
+            <br>
+            <button class="button is-primary input" type="submit">Guardar</button>  
         </form>
 
         <p v-if="successMessage" class="has-text-success">{{ successMessage }}</p>
@@ -135,5 +155,9 @@ export default {
 }
 textarea {
     resize: none;
+}
+.my-custom-box {
+    width: 400px;
+    height: 700px;
 }
 </style>
