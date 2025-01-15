@@ -10,7 +10,7 @@
     
 
         <div class="column is-3" v-for="game in bestGames" v-bind:key="game.id">
-            <div class="box">
+            <div class="box has-text-centered">
                 <figure class="image mb-4">
                     <img :src="game.get_thumbnail">
                 </figure>

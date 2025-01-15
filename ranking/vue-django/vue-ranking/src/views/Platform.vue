@@ -5,18 +5,19 @@
     <br>
     <div class="columns is-multiline">
         <div class="column is-3" v-for="platform in platforms" v-bind:key="platform.name">
-            <div v-on:click="getBestGames(platform.slug)" class="box">
+            <div v-on:click="getBestGames(platform.slug)" class="box is-clickable">
                 <h3 class="is-size-4">{{ platform.name_desc }}</h3>
             </div>
         </div>
     </div>
     <br>
-    <h1 class="title has-text-centered">Mejores Juegos</h1>
+    <h1 class="title has-text-centered" v-if="selected_platform === ''">Mejores Juegos</h1>
+    <h1 class="title has-text-centered" v-else>Mejores Juegos de {{ selected_platform }}</h1>
     <br>
     <div class="box" v-if="bestGames.length === 0">
         <p class="has-text-centered ">Seleccione una plataforma</p>
     </div>
-    <div class="columns is-multiline box" v-else>
+    <div class="columns is-multiline box has-text-centered" v-else>
         <div class="column is-3" v-for="game in bestGames" v-bind:key="game.id">
             <div class="box">
                 <figure class="image mb-4">
@@ -42,7 +43,8 @@ import axios from 'axios'
         data() {
             return {
                 platforms: [],
-                bestGames: []
+                bestGames: [],
+                selected_platform: ''
             }
         },
         components: {
@@ -68,6 +70,7 @@ import axios from 'axios'
                         console.log(response.data)
                         this.bestGames = response.data.games;
                         console.log(this.bestGames)
+                        this.selected_platform = response.data.name_desc
                     })
                     .catch(error => {
                         console.log(error)
