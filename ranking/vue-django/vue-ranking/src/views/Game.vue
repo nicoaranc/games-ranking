@@ -48,7 +48,7 @@
                     <h4 class="is-size-6 has-text-centered">{{ game_p.platform }}</h4>
                     <p class="is-size-6 has-text-grey has-text-centered">{{ game_p.score }}/100</p>
 
-                    <router-link v-bind:to="game_p.get_absolute_url" class="button is-dark mt-4"> Ver juego </router-link>
+                    <button class="button is-dark mt-4" v-on:click="reloadPage(game_p.get_absolute_url)"> Ver juego </button>
                 </div>
             </div>
         </div>
@@ -106,6 +106,9 @@ export default {
                     break
                 }
             }
+        },
+        reloadPage(url) {
+            window.location.href = url
         }
     }
 }
