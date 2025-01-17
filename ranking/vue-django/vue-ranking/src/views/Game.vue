@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="box has-text-centered">
-        <h1 class="title">Más juegos de {{ game.platform }}</h1>
+        <h1 class="title">Más juegos de {{ platform }}</h1>
         <br>
         <div class="columns is-multiline has-text-centered">
             <div class="column is-3" v-for="game_p in bestGames" v-bind:key="game_p.id">
@@ -64,7 +64,8 @@ export default {
         return {
             game: {},
             quantity: 1,
-            bestGames: []
+            bestGames: [],
+            platform: ''
         }
     },
     mounted() {
@@ -81,6 +82,8 @@ export default {
                 .then(response => {
                     this.game = response.data
                     this.getBestPlatformGames()
+                    window.scrollTo(0, 0);
+                    this.getPlatform()
                 })
                 .catch(error => {
                     console.log(error)
@@ -109,6 +112,22 @@ export default {
         },
         reloadPage(url) {
             window.location.href = url
+        },
+        getPlatform() {
+            axios
+                    .get('http://127.0.0.1:8000/api/platforms')
+                    .then(response => {
+                        //this.platforms = response.data;
+                        for (let i = 0; i < response.data.length; i++){
+                            if (response.data[i].name == this.game.platform){
+                                this.platform = response.data[i].name_desc
+                                break
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
         }
     }
 }
