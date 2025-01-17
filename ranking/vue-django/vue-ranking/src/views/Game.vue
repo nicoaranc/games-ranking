@@ -34,6 +34,25 @@
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
     </div>
+    <div class="box has-text-centered">
+        <h1 class="title">Más juegos de {{ game.platform }}</h1>
+        <br>
+        <div class="columns is-multiline has-text-centered">
+            <div class="column is-3" v-for="game_p in bestGames" v-bind:key="game_p.id">
+                <div class="box">
+                    <figure class="image mb-4">
+                        <img :src="game_p.get_thumbnail">
+                    </figure>
+
+                    <h3 class="is-size-4 has-text-centered">{{ game_p.name }}</h3>
+                    <h4 class="is-size-6 has-text-centered">{{ game_p.platform }}</h4>
+                    <p class="is-size-6 has-text-grey has-text-centered">{{ game_p.score }}/100</p>
+
+                    <router-link v-bind:to="game_p.get_absolute_url" class="button is-dark mt-4"> Ver juego </router-link>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -44,11 +63,13 @@ export default {
     data() {
         return {
             game: {},
-            quantity: 1
+            quantity: 1,
+            bestGames: []
         }
     },
     mounted() {
         this.getGame()
+        
     },
     methods: {
         getGame() {
@@ -59,10 +80,32 @@ export default {
                 .get(`http://127.0.0.1:8000/api/games/${platform_slug}/${game_slug}`)
                 .then(response => {
                     this.game = response.data
+                    this.getBestPlatformGames()
                 })
                 .catch(error => {
                     console.log(error)
                 })
+        },
+        getBestPlatformGames() {
+            const platform_slug = this.$route.params.platform_slug
+
+            axios
+                .get(`http://127.0.0.1:8000/api/games/${platform_slug}/`)
+                .then(response => {
+                    this.bestGames = response.data.games
+                    this.deleteMainGame()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        deleteMainGame() {
+            for (let i = 0; i < this.bestGames.length; i++){
+                if (this.bestGames[i].id == this.game.id) {
+                    this.bestGames.splice(i,1)
+                    break
+                }
+            }
         }
     }
 }
