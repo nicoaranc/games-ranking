@@ -117,7 +117,6 @@ export default {
             axios
                     .get('http://127.0.0.1:8000/api/platforms')
                     .then(response => {
-                        //this.platforms = response.data;
                         for (let i = 0; i < response.data.length; i++){
                             if (response.data[i].name == this.game.platform){
                                 this.platform = response.data[i].name_desc

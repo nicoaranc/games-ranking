@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Game, Platform, Image
+from .models import Game, Platform
 
 class GameSerializer(serializers.ModelSerializer):
 
@@ -26,9 +26,3 @@ class PlatformSerializer(serializers.ModelSerializer):
                   'slug', 
                   'name_desc', 
                   'games')
-
-class ImageSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Image
-        fields = ('route', 'game')

@@ -2,8 +2,8 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import Game, Platform, Image
-from .serializers import GameSerializer, PlatformSerializer, ImageSerializer
+from .models import Game, Platform
+from .serializers import GameSerializer, PlatformSerializer
 
 from django.http import Http404, QueryDict
 
@@ -57,11 +57,3 @@ class PlatformDetail(APIView):
         platform = self.get_object(platform_slug)
         serializer = PlatformSerializer(platform)
         return Response(serializer.data)
-
-class ImageList(generics.ListCreateAPIView):
-    queryset = Image.objects.all()
-    serializer_class = ImageSerializer
-
-class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Image.objects.all()
-    serializer_class = ImageSerializer

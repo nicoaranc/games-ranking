@@ -73,12 +73,3 @@ class Game(models.Model):
         return thumbnail
 
 
-class Image(models.Model):
-    route = models.CharField(max_length=300, verbose_name='Ruta')
-    game = models.IntegerField(verbose_name='Game Id', primary_key=True)
-
-    class Meta:
-        verbose_name = 'Imagen'
-        verbose_name_plural = 'Imágenes'
-        ordering = ['game']
-
