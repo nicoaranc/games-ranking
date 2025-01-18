@@ -57,6 +57,30 @@
         <p v-if="errorMessage" class="has-text-danger">{{ errorMessage }}</p>
 
     </div>
+
+    <div v-if="submitedGame" class="modal has-text-centered" :class="{'is-active': isModalActive}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3 class="modal-card-title">{{ submitedGame.name }} ha sido registrado exitosamente </h3>
+                <button class="delete" aria-label="close" @click="closeModal()"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="box has-text-centered">
+                    <figure class="image mb-4">
+                        <img :src="submitedGame.get_thumbnail">
+                    </figure>
+
+                    <h3 class="is-size-4">{{ submitedGame.name }}</h3>
+                    <h4 class="is-size-6">{{ submitedGame.platform }}</h4>
+                    <p class="is-size-6 has-text-grey">{{ submitedGame.score }}/100</p>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <router-link v-bind:to="submitedGame.get_absolute_url" class="button is-dark mt-4"> Ver juego </router-link>
+            </footer>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -77,8 +101,10 @@ export default {
                 video: '',
                 
             },
+            submitedGame: {},
             successMessage: '',
-            errorMessage: ''
+            errorMessage: '',
+            isModalActive: false
         }
     },
     components:{
@@ -112,10 +138,10 @@ export default {
                 const formData = new FormData();
                 formData.append('name', this.game.name);
                 formData.append('platform', this.game.platform);
-                formData.append('slug', slug); // Puedes generarlo aquí si prefieres
+                formData.append('slug', slug); 
                 formData.append('score', this.game.score);
                 if (this.game.image) {
-                    formData.append('image', this.game.image); // Agregar archivo de imagen
+                    formData.append('image', this.game.image); 
                 }
                 formData.append('description', this.game.description);
                 formData.append('video', this.game.video);
@@ -123,8 +149,8 @@ export default {
                 axios
                     .post('http://127.0.0.1:8000/api/games/', formData)
                     .then(response => {
-                        console.log("BIEN")
                         console.log(response)
+                        this.getGame(slug, this.game.platform.toLowerCase())
                     })
                     .catch(error => {
                         console.log("MAL")
@@ -133,7 +159,8 @@ export default {
 
                 this.successMessage = 'Juego registrado exitosamente!'
                 this.errorMessage = ''
-                this.resetForm()
+                
+                
         },
         resetForm() {
             this.game = {
@@ -142,8 +169,25 @@ export default {
                 score: '',
                 description: '',
                 video: '',
-                image: null
+                image: null,
             }
+        },
+        getGame(game_name, game_platform) {
+            axios
+                .get(`http://127.0.0.1:8000/api/games/${game_platform}/${game_name}`)
+                .then(response => {
+                    this.submitedGame = response.data
+                    console.log('Datos del juego:', this.submitedGame);
+                    this.isModalActive = true
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        closeModal() {
+            this.isModalActive = false
+            this.submitedGame = {}
+            this.resetForm()
         }
     }
 }

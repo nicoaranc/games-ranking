@@ -8,7 +8,7 @@
                         <img v-bind:src="game.get_image">
                         <br>
                         <p class="has-text-centered"><strong>MyScore: </strong>{{ game.score }}/100</p>
-                        <p class="has-text-centered"><strong>Platform: </strong>{{ game.platform }}</p>
+                        <p class="has-text-centered"><strong>Platform: </strong>{{ platform }}</p>
                     </figure>
                 </div>
                 <div class="column">
