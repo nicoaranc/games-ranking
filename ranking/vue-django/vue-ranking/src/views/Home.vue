@@ -1,11 +1,7 @@
 <template>
-    <div class="home">
-        <h1>Mi Ranking de juegos</h1>
-    </div>
-
     <div class="columns is-multiline">
         <div class="column is-12">
-            <h2 class="is-size-2 has-text-centered">Mejores juegos</h2>
+            <h2 class="is-size-2 has-text-centered">Mi Ranking de Mejores Juegos</h2>
         </div>
     
 
