@@ -46,6 +46,7 @@
                         type="file"
                         accept="image/*"
                         @change="handleImageUpload"
+                        ref="imageInput"
                         required />
                 </div>
             </div>
@@ -62,14 +63,21 @@
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3 class="modal-card-title">{{ submitedGame.name }} ha sido registrado exitosamente </h3>
-                <button class="delete" aria-label="close" @click="closeModal()"></button>
+                <div class="columns">
+                    <div class="column">
+                        <h3 class="modal-card-title">{{ submitedGame.name }} ha sido registrado exitosamente </h3>
+                    </div>
+                    <button class="delete" aria-label="close" @click="closeModal()"></button>
+                </div>
             </header>
             <section class="modal-card-body">
                 <div class="box has-text-centered">
-                    <figure class="image mb-4">
-                        <img :src="submitedGame.get_thumbnail">
-                    </figure>
+                    <div class="is-flex is-justify-content-center">
+                        <figure class="image mb-4">
+                            <img :src="submitedGame.get_thumbnail" style="max-width: 200px; height: auto;">
+                        </figure>
+                    </div>
+                    
 
                     <h3 class="is-size-4">{{ submitedGame.name }}</h3>
                     <h4 class="is-size-6">{{ submitedGame.platform }}</h4>
@@ -170,6 +178,10 @@ export default {
                 description: '',
                 video: '',
                 image: null,
+            }
+
+            if (this.$refs.imageInput) {
+                this.$refs.imageInput.value = '';
             }
         },
         getGame(game_name, game_platform) {
