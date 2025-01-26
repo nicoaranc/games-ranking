@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'; // Asegúrate de que la ruta sea correcta
 import Game from '../views/Game.vue';
 import Platforms from '../views/Platform.vue'
 import RegisterGame from '../views/Register.vue'
+import SearchGame from '../views/Search.vue'
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path: '/register-game',
     name: 'RegisterGame',
     component: RegisterGame
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: SearchGame
   }
 ];
 
