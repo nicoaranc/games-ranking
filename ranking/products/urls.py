@@ -1,9 +1,12 @@
 from django.urls import path
 from .views import *
 
+from products import views
+
 urlpatterns = [
     path('games/', GameList.as_view(), name='game-list'),
     path('games/<slug:platform_slug>/<slug:game_slug>/', GameDetail.as_view(), name='game-detail'),
     path('platforms/', PlatformList.as_view(), name='platform-list'),
-    path('games/<slug:platform_slug>/', PlatformDetail.as_view(), name='platform-games')
+    path('games/<slug:platform_slug>/', PlatformDetail.as_view(), name='platform-games'),
+    path('search/', views.search)
 ]

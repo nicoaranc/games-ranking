@@ -1,11 +1,13 @@
+from django.http import Http404, QueryDict
+from django.db.models import Q
+
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 from .models import Game, Platform
 from .serializers import GameSerializer, PlatformSerializer
-
-from django.http import Http404, QueryDict
 
 # Create your views here.
 
@@ -57,3 +59,15 @@ class PlatformDetail(APIView):
         platform = self.get_object(platform_slug)
         serializer = PlatformSerializer(platform)
         return Response(serializer.data)
+
+@api_view(['POST'])
+def search(request):
+    query = request.data.get('query', '')
+
+    if query:
+        games = Game.objects.filter(Q(name__icontains=query))
+        serializer = GameSerializer(games, many=True)
+        return Response(serializer.data)
+    
+    else:
+        return Response({"games": []})
