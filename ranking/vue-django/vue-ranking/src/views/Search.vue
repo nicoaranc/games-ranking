@@ -9,9 +9,11 @@
                     <button class="button is-primary input" type="submit">Buscar</button>
                 </form>
 
+                <br>
+                <br>
                 
-                <div class="box has-text-centered" v-if="query != ''">
-                    <h2 class="is-size-5 has-text-grey"> Resultados para "{{ query }}" </h2>
+                <div class="box has-text-centered" v-if="games.length != 0">
+                    <h2 class="is-size-2 title"> Resultados para "{{ final_query }}" </h2>
                     <br>
                     <div class="columns is-multiline has-text-centered">
                         <div class="column is-3" v-for="game_p in games" v-bind:key="game_p.id">
@@ -43,7 +45,8 @@ export default {
     data() {
         return {
             games: [],
-            query: ''
+            query: '',
+            final_query: ''
         }
     },
     components: {
@@ -55,6 +58,7 @@ export default {
                 .then(response => {
                     console.log(response.data)
                     this.games = response.data
+                    this.final_query = this.query
                 })
                 .catch(error => {
                     console.log(error)
