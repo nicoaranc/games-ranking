@@ -26,8 +26,6 @@ Pasó el tiempo y me di cuenta que era un proceso muy engorroso e incómodo, es 
 
 - **Game**
 
-    <p>Información del juego</p>
-
     <br>
     <img src="screenshots/game_1.png">
     <br>
