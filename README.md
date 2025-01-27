@@ -58,3 +58,8 @@ Pasó el tiempo y me di cuenta que era un proceso muy engorroso e incómodo, es 
     <img src="screenshots/search_1.png">
     <br>
     <img src="screenshots/search_2.png">
+
+
+## Disclaimer
+
+Este proyecto es de uso personal, por ende no hay validación en los formularios presentes en la aplicación (en futuro quizás haya).
