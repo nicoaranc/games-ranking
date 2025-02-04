@@ -43,6 +43,7 @@ Pasó el tiempo y me di cuenta que era un proceso muy engorroso e incómodo, es 
 <br>
 
 - **Register**
+
     <br>
     <img src="screenshots/register_1.png">
     <br>
@@ -52,6 +53,7 @@ Pasó el tiempo y me di cuenta que era un proceso muy engorroso e incómodo, es 
 <br>
 
 - **Search**
+
     <br>
     <img src="screenshots/search_1.png">
     <br>
