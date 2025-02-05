@@ -112,7 +112,8 @@ export default {
             submitedGame: {},
             successMessage: '',
             errorMessage: '',
-            isModalActive: false
+            isModalActive: false,
+            specialChars: [':', '.', '\'']
         }
     },
     components:{
@@ -142,7 +143,7 @@ export default {
             }
         },
         submitGame() {
-                const slug = this.game.name.toLowerCase().replace(/ /g, '-').replace(/:/g, '').replace(/'/g, '');
+                const slug = this.processName(this.game.name)
                 const formData = new FormData();
                 formData.append('name', this.game.name);
                 formData.append('platform', this.game.platform);
@@ -200,6 +201,19 @@ export default {
             this.isModalActive = false
             this.submitedGame = {}
             this.resetForm()
+        },
+        processName(name) {
+            let slug = name
+            for (let i = 0; i < this.specialChars.length; i++){
+                slug = slug.replace(/specialChars[i]/,)
+            }
+            slug = slug.toLowerCase().replace(/ /, '-')
+            slug = this.quitarTilde(slug)
+            return slug
+            
+        },
+        quitarTilde(name) {
+            return name.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         }
     }
 }
