@@ -205,9 +205,9 @@ export default {
         processName(name) {
             let slug = name
             for (let i = 0; i < this.specialChars.length; i++){
-                slug = slug.replace(/specialChars[i]/,)
+                slug = slug.replace(/specialChars[i]/,'')
             }
-            slug = slug.toLowerCase().replace(/ /, '-')
+            slug = slug.toLowerCase().replace(/ /g, '-')
             slug = this.quitarTilde(slug)
             return slug
             
