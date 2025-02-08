@@ -204,9 +204,8 @@ export default {
         },
         processName(name) {
             let slug = name
-            for (let i = 0; i < this.specialChars.length; i++){
-                slug = slug.replace(/specialChars[i]/,'')
-            }
+            let regex = new RegExp(`[${this.specialChars.map(char => '\\' + char).join('')}]`, 'g');
+            slug = slug.replace(regex, '');
             slug = slug.toLowerCase().replace(/ /g, '-')
             slug = this.quitarTilde(slug)
             return slug
