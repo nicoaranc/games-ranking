@@ -5,13 +5,13 @@
         </div>
     
 
-        <div class="column is-3" v-for="game in bestGames" v-bind:key="game.id">
+        <div class="column is-2" v-for="game in bestGames" v-bind:key="game.id">
             <div class="box has-text-centered">
                 <figure class="image mb-4">
                     <img :src="game.get_thumbnail">
                 </figure>
 
-                <h3 class="is-size-4">{{ game.name }}</h3>
+                <h3 class="is-size-4 has-text-weight-bold">{{ game.name }}</h3>
                 <h4 class="is-size-6">{{ game.platform }}</h4>
                 <p class="is-size-6 has-text-grey">{{ game.score }}/100</p>
 
