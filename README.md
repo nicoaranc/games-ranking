@@ -29,6 +29,7 @@ Pasó el tiempo y me di cuenta que era un proceso muy engorroso e incómodo, es 
     <br>
     <img src="screenshots/game_1.png">
     <br>
+    <br>
     <img src="screenshots/game_2.png">
 
 <br>
@@ -37,6 +38,7 @@ Pasó el tiempo y me di cuenta que era un proceso muy engorroso e incómodo, es 
 
     <br>
     <img src="screenshots/platform_1.png">
+    <br>
     <br>
     <img src="screenshots/platform_2.png">
 
@@ -47,6 +49,7 @@ Pasó el tiempo y me di cuenta que era un proceso muy engorroso e incómodo, es 
     <br>
     <img src="screenshots/register_1.png">
     <br>
+    <br>
     <img src="screenshots/register_2.png">
 
 
@@ -56,6 +59,7 @@ Pasó el tiempo y me di cuenta que era un proceso muy engorroso e incómodo, es 
 
     <br>
     <img src="screenshots/search_1.png">
+    <br>
     <br>
     <img src="screenshots/search_2.png">
 
