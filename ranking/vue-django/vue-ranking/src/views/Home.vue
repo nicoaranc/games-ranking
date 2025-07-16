@@ -1,13 +1,13 @@
 <template>
     <div class="columns is-multiline">
-        <div class="column is-12">
-            <h2 class="is-size-2 has-text-centered">Mi Ranking de Mejores Juegos</h2>
+        <div class="column is-12 mb-4">
+            <h2 class="is-size-1 has-text-centered">Mi Ranking de Mejores Juegos</h2>
         </div>
         
         <div class="box columns is-multiline">
-            <div class="column is-2" v-for="game in bestGames" v-bind:key="game.id">
-                <div class="box has-text-centered">
-                    <figure class="image mb-4">
+            <div class="column is-3" v-for="game in bestGames" v-bind:key="game.id">
+                <div class="box has-text-centered fixed-size">
+                    <figure class="image mb-3">
                         <img :src="game.get_thumbnail">
                     </figure>
 
@@ -52,7 +52,11 @@ export default {
                 .catch(error => {
                     console.log(error)
                 })
-        }
-    }
+        },
+    },
 }
 </script>
+
+<style>
+    @import '../assets/styles/box_size.css';
+</style>

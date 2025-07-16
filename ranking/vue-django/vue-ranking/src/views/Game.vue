@@ -39,7 +39,7 @@
         <br>
         <div class="columns is-multiline has-text-centered">
             <div class="column is-3" v-for="game_p in bestGames" v-bind:key="game_p.id">
-                <div class="box">
+                <div class="box fixed-size">
                     <figure class="image mb-4">
                         <img :src="game_p.get_thumbnail">
                     </figure>
@@ -131,3 +131,7 @@ export default {
     }
 }
 </script>
+
+<style>
+    @import '../assets/styles/box_size.css';
+</style>

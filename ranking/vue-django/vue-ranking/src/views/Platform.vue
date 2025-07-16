@@ -19,7 +19,7 @@
     </div>
     <div class="columns is-multiline box has-text-centered" v-else>
         <div class="column is-3" v-for="game in bestGames" v-bind:key="game.id">
-            <div class="box">
+            <div class="box fixed-size">
                 <figure class="image mb-4">
                     <img :src="game.get_thumbnail">
                 </figure>
@@ -79,3 +79,7 @@ import axios from 'axios'
         }
     }
 </script>
+
+<style>
+    @import '../assets/styles/box_size.css';
+</style>
