@@ -5,7 +5,7 @@
         </div>
         
         <div class="box columns is-multiline">
-            <div class="column is-3" v-for="game in bestGames" v-bind:key="game.id">
+            <div class="column is-3" v-for="game in visibleGames" v-bind:key="game.id">
                 <div class="box has-text-centered fixed-size">
                     <figure class="image mb-3">
                         <img :src="game.get_thumbnail">
@@ -18,6 +18,8 @@
                     <router-link v-bind:to="game.get_absolute_url" class="button is-dark mt-4"> Ver juego </router-link>
                 </div>
             </div>
+            <button id="prevButton" v-on:click="prevPage()" class="button is-dark mt-4" :disabled="disPrevButton">Previo</button>
+            <button id="nextButton" v-on:click="nextPage()" class="button is-dark mt-4" :disabled="disNextButton">Siguiente</button>
         </div>
         
         
@@ -34,7 +36,12 @@ export default {
     name:'Home-page',
     data() {
         return {
-            bestGames: []
+            disPrevButton: true,
+            disNextButton: true,
+            currentPage: 0,
+            perPage: 12,
+            bestGames: [],
+            visibleGames: []
         }
     },
     components: {
@@ -48,15 +55,48 @@ export default {
                 .get('http://127.0.0.1:8000/api/games/')
                 .then(response => {
                     this.bestGames = response.data;
+                    this.updateVisibleGames()
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
+        updateVisibleGames() {
+            this.visibleGames = this.bestGames.slice(this.currentPage * this.perPage, (this.currentPage * this.perPage) + this.perPage)
+            this.setButtons()
+        },
+        prevPage() {
+            this.currentPage -= 1;
+            this.updateVisibleGames()
+        },
+        nextPage() {
+            this.currentPage += 1;
+            this.updateVisibleGames()
+        },
+        setButtons() {
+            if (this.currentPage == 0){
+                this.disPrevButton = true;
+            }
+            if (this.currentPage > 0){
+                this.disPrevButton = false;
+            }
+            if ((this.currentPage * this.perPage) + this.perPage < this.bestGames.length){
+                this.disNextButton = false;
+            }
+            if ((this.currentPage * this.perPage) + this.perPage >= this.bestGames.length){
+                this.disNextButton = true;
+            }
+        }
     },
 }
 </script>
 
 <style>
     @import '../assets/styles/box_size.css';
+
+    #nextButton {
+        position: relative;
+        margin-left: auto;
+    }
+
 </style>
