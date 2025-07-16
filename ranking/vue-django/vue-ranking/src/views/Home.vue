@@ -4,25 +4,25 @@
             <h2 class="is-size-1 has-text-centered">Mi Ranking de Mejores Juegos</h2>
         </div>
         
-        <div class="box columns is-multiline">
+        <div id="game-container" class="box columns is-multiline">
             <div class="column is-3" v-for="game in visibleGames" v-bind:key="game.id">
                 <div class="box has-text-centered fixed-size">
                     <figure class="image mb-3">
                         <img :src="game.get_thumbnail">
                     </figure>
 
-                    <h3 class="is-size-4 has-text-weight-bold">{{ game.name }}</h3>
+                    <h3 class="is-size-5 has-text-weight-bold">{{ game.name }}</h3>
                     <h4 class="is-size-6">{{ game.platform }}</h4>
                     <p class="is-size-6 has-text-grey">{{ game.score }}/100</p>
 
                     <router-link v-bind:to="game.get_absolute_url" class="button is-dark mt-4"> Ver juego </router-link>
                 </div>
             </div>
-            <button id="prevButton" v-on:click="prevPage()" class="button is-dark mt-4" :disabled="disPrevButton">Previo</button>
-            <button id="nextButton" v-on:click="nextPage()" class="button is-dark mt-4" :disabled="disNextButton">Siguiente</button>
         </div>
-        
-        
+
+        <button id="prev-button" v-on:click="prevPage()" class="button is-dark mt-4" :disabled="disPrevButton">Previo</button>
+        <p id="page-index" class="mt-5">Página actual: {{ currentPage + 1 }}</p>
+        <button id="next-button" v-on:click="nextPage()" class="button is-dark mt-4" :disabled="disNextButton">Siguiente</button>
 
         <div v-if="bestGames.length === 0">
             <p>No se encontraron juegos.</p>
@@ -94,9 +94,16 @@ export default {
 <style>
     @import '../assets/styles/box_size.css';
 
-    #nextButton {
-        position: relative;
+    #next-button {
         margin-left: auto;
+    }
+
+    #game-container {
+        width: 100%;
+    }
+
+    #page-index {
+        margin-left: 39%;
     }
 
 </style>
