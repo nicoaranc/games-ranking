@@ -5,7 +5,7 @@
                 <h1 class="title">Búsqueda</h1>
 
                 <form @submit.prevent="searchGame">
-                    <input class="input" v-model="query" placeholder="Juego a buscar" required/>
+                    <input class="input mb-3" v-model="query" placeholder="Juego a buscar" required/>
                     <button class="button is-primary input" type="submit">Buscar</button>
                 </form>
 
