@@ -20,8 +20,8 @@
             </div>
         </div>
 
-        <button id="prev-button" v-on:click="prevPage()" class="button is-dark mt-4" :disabled="disPrevButton">Previo</button>
-        <p id="page-index" class="mt-5">Página actual: {{ currentPage + 1 }}</p>
+        <button id="prev-button" v-on:click="prevPage()" class="button is-dark mt-4" :disabled="disPrevButton">Anterior</button>
+        <!-- <p id="page-index" class="mt-5">Página actual: {{ currentPage + 1 }}</p> -->
         <button id="next-button" v-on:click="nextPage()" class="button is-dark mt-4" :disabled="disNextButton">Siguiente</button>
 
         <div v-if="bestGames.length === 0">
@@ -64,6 +64,7 @@ export default {
         updateVisibleGames() {
             this.visibleGames = this.bestGames.slice(this.currentPage * this.perPage, (this.currentPage * this.perPage) + this.perPage)
             this.setButtons()
+            this.autoScroll()
         },
         prevPage() {
             this.currentPage -= 1;
@@ -86,6 +87,13 @@ export default {
             if ((this.currentPage * this.perPage) + this.perPage >= this.bestGames.length){
                 this.disNextButton = true;
             }
+        },
+        autoScroll() {
+            window.scroll({
+                top: 0,
+                left: 0,
+                behaviour: "smooth", 
+            })
         }
     },
 }
