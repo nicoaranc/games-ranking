@@ -52,7 +52,7 @@ class PlatformDetail(APIView):
     def get_object(self, platform_slug):
         try:
             return Platform.objects.get(slug=platform_slug)
-        except Game.DoesNotExist:
+        except Platform.DoesNotExist:
             raise Http404
         
     def get(self, request, platform_slug, format=None):

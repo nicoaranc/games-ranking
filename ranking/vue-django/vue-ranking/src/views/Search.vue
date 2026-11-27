@@ -1,73 +1,55 @@
 <template>
-    <div class="page-search">
-        <div>
-            <div class="has-text-centered">
-                <h1 class="title">Búsqueda</h1>
+  <div class="page-search">
+    <div class="has-text-centered">
+      <h1 class="title">Búsqueda</h1>
 
-                <form @submit.prevent="searchGame">
-                    <input class="input mb-3" v-model="query" placeholder="Juego a buscar" required/>
-                    <button class="button is-primary input" type="submit">Buscar</button>
-                </form>
+      <form @submit.prevent="searchGame">
+        <input class="input mb-3" v-model="query" placeholder="Juego a buscar" required />
+        <button class="button is-primary input" type="submit">Buscar</button>
+      </form>
 
-                <br>
-                <br>
-                
-                <div class="box has-text-centered" v-if="games.length != 0">
-                    <h2 class="is-size-2 title"> Resultados para "{{ final_query }}" </h2>
-                    <br>
-                    <div class="columns is-multiline has-text-centered">
-                        <div class="column is-3" v-for="game_p in games" v-bind:key="game_p.id">
-                            <div class="box fixed-size">
-                                <figure class="image mb-4">
-                                    <img :src="game_p.get_thumbnail">
-                                </figure>
+      <br />
+      <br />
 
-                                <h3 class="is-size-4 has-text-centered">{{ game_p.name }}</h3>
-                                <h4 class="is-size-6 has-text-centered">{{ game_p.platform }}</h4>
-                                <p class="is-size-6 has-text-grey has-text-centered">{{ game_p.score }}/100</p>
-
-                                <router-link v-bind:to="game_p.get_absolute_url" class="button is-dark mt-4"> Ver juego </router-link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+      <div class="box has-text-centered" v-if="hasSearched">
+        <h2 class="is-size-2 title">Resultados para "{{ finalQuery }}"</h2>
+        <br />
+        <GameGrid :games="games" />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
+import GameGrid from '../components/GameGrid.vue';
+import api from '../services/api.js';
 
 export default {
-    name:'Search-page',
-    data() {
-        return {
-            games: [],
-            query: '',
-            final_query: ''
-        }
+  name: 'SearchPage',
+  components: {
+    GameGrid,
+  },
+  data() {
+    return {
+      games: [],
+      query: '',
+      finalQuery: '',
+      hasSearched: false,
+    };
+  },
+  methods: {
+    searchGame() {
+      api
+        .searchGames(this.query)
+        .then((response) => {
+          this.games = Array.isArray(response.data) ? response.data : [];
+          this.finalQuery = this.query;
+          this.hasSearched = true;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
-    components: {
-    },
-    methods: {
-        searchGame() {
-            axios
-                .post('/api/search/', {'query': this.query})
-                .then(response => {
-                    console.log(response.data)
-                    this.games = response.data
-                    this.final_query = this.query
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        }
-    }
-}
+  },
+};
 </script>
-
-<style>
-    @import '../assets/styles/box_size.css';
-</style>

@@ -1,137 +1,118 @@
 <template>
+  <div>
     <div class="columns">
-        <div class="column">
-            <h1 class="title">{{ game.name }}</h1>
-            <div class="columns">
-                <div class="column is-4 ">
-                    <figure class="image mb-6">
-                        <img v-bind:src="game.get_image">
-                        <br>
-                        <p class="has-text-centered"><strong>MyScore: </strong>{{ game.score }}/100</p>
-                        <p class="has-text-centered"><strong>Platform: </strong>{{ platform }}</p>
-                    </figure>
-                </div>
-                <div class="column">
-                    <p class="has-text-centered">Descripción</p>
-                    <br>
-                    <p class="has-text-centered">
-
-                            {{ game.description }}
-
-                    </p>
-                </div>
-            </div>
-
+      <div class="column">
+        <h1 class="title">{{ game.name }}</h1>
+        <div class="columns">
+          <div class="column is-4">
+            <figure class="image mb-6">
+              <img :src="game.get_image" :alt="game.name" />
+              <br />
+              <p class="has-text-centered"><strong>MyScore: </strong>{{ game.score }}/100</p>
+              <p class="has-text-centered"><strong>Platform: </strong>{{ platform }}</p>
+            </figure>
+          </div>
+          <div class="column">
+            <p class="has-text-centered">Descripción</p>
+            <br />
+            <p class="has-text-centered">
+              {{ game.description }}
+            </p>
+          </div>
         </div>
-        <div class="column has-text-centered">
-            <h1 class="title">Video/Trailer</h1>
-            <iframe width="560" 
-            height="315" 
-            v-bind:src="game.video" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
+      </div>
+      <div class="column has-text-centered">
+        <h1 class="title">Video/Trailer</h1>
+        <iframe
+          width="560"
+          height="315"
+          :src="game.video"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
+
     <div class="box has-text-centered">
-        <h1 class="title">Más juegos de {{ platform }}</h1>
-        <br>
-        <div class="columns is-multiline has-text-centered">
-            <div class="column is-3" v-for="game_p in bestGames" v-bind:key="game_p.id">
-                <div class="box fixed-size">
-                    <figure class="image mb-4">
-                        <img :src="game_p.get_thumbnail">
-                    </figure>
-
-                    <h3 class="is-size-4 has-text-centered">{{ game_p.name }}</h3>
-                    <h4 class="is-size-6 has-text-centered">{{ game_p.platform }}</h4>
-                    <p class="is-size-6 has-text-grey has-text-centered">{{ game_p.score }}/100</p>
-
-                    <button class="button is-dark mt-4" v-on:click="reloadPage(game_p.get_absolute_url)"> Ver juego </button>
-                </div>
-            </div>
-        </div>
+      <h1 class="title">Más juegos de {{ platform }}</h1>
+      <br />
+      <GameGrid
+        :games="bestGames"
+        empty-message="No hay más juegos registrados para esta plataforma."
+      />
     </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
+import GameGrid from '../components/GameGrid.vue';
+import api from '../services/api.js';
 
 export default {
-    name: 'Game-page',
-    data() {
-        return {
-            game: {},
-            quantity: 1,
-            bestGames: [],
-            platform: ''
+  name: 'GamePage',
+  components: {
+    GameGrid,
+  },
+  data() {
+    return {
+      game: {},
+      bestGames: [],
+      platform: '',
+    };
+  },
+  watch: {
+    '$route.params': {
+      handler(params) {
+        if (params.platform_slug && params.game_slug) {
+          this.getGame();
         }
+      },
+      deep: true,
     },
-    mounted() {
-        this.getGame()
-        
-    },
-    methods: {
-        getGame() {
-            const platform_slug = this.$route.params.platform_slug
-            const game_slug = this.$route.params.game_slug
-            
-            axios
-                .get(`http://127.0.0.1:8000/api/games/${platform_slug}/${game_slug}`)
-                .then(response => {
-                    this.game = response.data
-                    this.getBestPlatformGames()
-                    window.scrollTo(0, 0);
-                    this.getPlatform()
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
-        getBestPlatformGames() {
-            const platform_slug = this.$route.params.platform_slug
+  },
+  mounted() {
+    this.getGame();
+  },
+  methods: {
+    getGame() {
+      const { platform_slug: platformSlug, game_slug: gameSlug } = this.$route.params;
 
-            axios
-                .get(`http://127.0.0.1:8000/api/games/${platform_slug}/`)
-                .then(response => {
-                    this.bestGames = response.data.games
-                    this.deleteMainGame()
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
-        deleteMainGame() {
-            for (let i = 0; i < this.bestGames.length; i++){
-                if (this.bestGames[i].id == this.game.id) {
-                    this.bestGames.splice(i,1)
-                    break
-                }
-            }
-        },
-        reloadPage(url) {
-            window.location.href = url
-        },
-        getPlatform() {
-            axios
-                    .get('http://127.0.0.1:8000/api/platforms')
-                    .then(response => {
-                        for (let i = 0; i < response.data.length; i++){
-                            if (response.data[i].name == this.game.platform){
-                                this.platform = response.data[i].name_desc
-                                break
-                            }
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-        }
-    }
-}
+      api
+        .getGame(platformSlug, gameSlug)
+        .then((response) => {
+          this.game = response.data;
+          this.getBestPlatformGames(platformSlug);
+          this.getPlatform();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getBestPlatformGames(platformSlug) {
+      api
+        .getPlatformGames(platformSlug)
+        .then((response) => {
+          this.bestGames = response.data.games.filter((item) => item.id !== this.game.id);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getPlatform() {
+      api
+        .getPlatforms()
+        .then((response) => {
+          const matched = response.data.find((item) => item.name === this.game.platform);
+          this.platform = matched ? matched.name_desc : this.game.platform || '';
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
+};
 </script>
-
-<style>
-    @import '../assets/styles/box_size.css';
-</style>
