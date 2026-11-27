@@ -1,0 +1,13 @@
+.git
+.venv
+.env
+.env.*
+__pycache__
+*.pyc
+*.pyo
+*.log
+ranking/db.sqlite3
+ranking/media
+ranking/vue-django
+screenshots
+own.txt

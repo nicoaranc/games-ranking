@@ -64,6 +64,35 @@ Pasó el tiempo y me di cuenta que era un proceso muy engorroso e incómodo, es 
     <img src="screenshots/search_2.png">
 
 
+## Cómo levantar el proyecto localmente
+
+### Backend y Base de Datos (Docker)
+
+1. Copia el archivo de variables de entorno de ejemplo y ajústalo si es necesario:
+   ```bash
+   cp .env.example .env
+   ```
+2. Construye y levanta PostgreSQL + Django:
+   ```bash
+   docker compose up -d --build
+   ```
+   - API disponible en `http://127.0.0.1:8000/api/`
+   - Admin de Django en `http://127.0.0.1:8000/admin/`
+   - PostgreSQL expuesto en el puerto definido en `POSTGRES_HOST_PORT` (por defecto `5434`).
+3. Para ejecutar comandos de Django dentro del contenedor:
+   ```bash
+   docker compose exec backend python manage.py createsuperuser
+   docker compose exec backend python manage.py makemigrations
+   ```
+
+### Frontend (Vue)
+
+```bash
+cd ranking/vue-django/vue-ranking
+npm install
+npm run serve
+```
+
 ## Disclaimer
 
 Este proyecto es de uso personal, por ende no hay validación en los formularios presentes en la aplicación (en futuro quizás haya).
